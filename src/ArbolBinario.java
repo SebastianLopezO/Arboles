@@ -3,9 +3,14 @@ import javax.swing.JOptionPane;
 public class ArbolBinario {
 
     private Nodo raiz;
+    public String Name;
 
     public ArbolBinario() {
-        raiz = null;
+        this.raiz = null;
+    }
+    public ArbolBinario(String Name) {
+        this.Name=Name;
+        this.raiz = null;
     }
 
     public Nodo getRaiz() {
@@ -25,17 +30,17 @@ public class ArbolBinario {
 
     public void Inordenrec(Nodo R) {
         if (R != null) {
-            Inordenrec(R.getLi());
+            this.Inordenrec(R.getLi());
             System.out.println(R.getCedula() + "   " + R.getNombre() + "   " + R.getEdad());
-            Inordenrec(R.getLd());
+            this.Inordenrec(R.getLd());
         }
     }
 
     public void Posordenrec(Nodo R) {
 
         if (R != null) {
-            Posordenrec(R.getLi());
-            Posordenrec(R.getLd());
+            this.Posordenrec(R.getLi());
+            this.Posordenrec(R.getLd());
             System.out.println(R.getCedula() + "   " + R.getNombre() + "   " + R.getEdad());
         }
     }
@@ -262,14 +267,14 @@ public class ArbolBinario {
     }
 
 
-    public int contarraices(Nodo B) {
+    public int CountRoots(Nodo B) {
 
         if (B != null) {
             if(B.getLi()!=null || B.getLd()!=null){
                 acum++;
             }
-            contarraices(B.getLi());
-            contarraices(B.getLd());
+            this.CountRoots(B.getLi());
+            this.CountRoots(B.getLd());
 
         }
 
