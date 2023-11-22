@@ -2,51 +2,50 @@ import javax.swing.JOptionPane;
 
 public class ArbolBinario {
 
-    private Nodo raiz;
+    private Nodo Raiz;
     public String Name;
 
     public ArbolBinario() {
-        this.raiz = null;
+        this.Raiz = null;
     }
     public ArbolBinario(String Name) {
         this.Name=Name;
-        this.raiz = null;
+        this.Raiz = null;
     }
 
     public Nodo getRaiz() {
-        return raiz;
+        return Raiz;
     }
 
     public int acum=0;
 
-    public void Preordenrec(Nodo R) {
-
+    public void Preorder(Nodo R) {
         if (R != null) {
             System.out.println(R.getCedula() + "   " + R.getNombre() + "   " + R.getEdad());
-            Preordenrec(R.getLi());
-            Preordenrec(R.getLd());
+            Preorder(R.getLi());
+            Preorder(R.getLd());
         }
     }
 
-    public void Inordenrec(Nodo R) {
+    public void Inorder(Nodo R) {
         if (R != null) {
-            this.Inordenrec(R.getLi());
+            this.Inorder(R.getLi());
             System.out.println(R.getCedula() + "   " + R.getNombre() + "   " + R.getEdad());
-            this.Inordenrec(R.getLd());
+            this.Inorder(R.getLd());
         }
     }
 
-    public void Posordenrec(Nodo R) {
+    public void Postorder(Nodo R) {
 
         if (R != null) {
-            this.Posordenrec(R.getLi());
-            this.Posordenrec(R.getLd());
+            this.Postorder(R.getLi());
+            this.Postorder(R.getLd());
             System.out.println(R.getCedula() + "   " + R.getNombre() + "   " + R.getEdad());
         }
     }
 
-    public void Insertar(String cedula, String nombre, int edad) {
-        Nodo R = raiz, Ant = null;
+    public void Insert(String cedula, String nombre, int edad) {
+        Nodo R = Raiz, Ant = null;
         boolean sw = false;
 
         while (R != null && sw == false) {
@@ -67,8 +66,8 @@ public class ArbolBinario {
             R = new Nodo(cedula, nombre, edad);
         }
 
-        if (raiz == null) {
-            raiz = R;
+        if (Raiz == null) {
+            Raiz = R;
         } else {
             if ((cedula.compareTo(Ant.getCedula()) < 0)) {
                 Ant.setLi(R);
@@ -78,8 +77,8 @@ public class ArbolBinario {
         }
     }
 
-    public void Eliminar(String dato) {
-        Nodo Aux = null, B = raiz;
+    public void Delete(String dato) {
+        Nodo Aux = null, B = Raiz;
         boolean sw = false;
 
         while (B != null && sw == false) {
@@ -135,8 +134,8 @@ public class ArbolBinario {
         }
     }
 
-    public void Nivel() {
-        Nodo B = raiz, C = raiz;
+    public void Level() {
+        Nodo B = Raiz, C = Raiz;
         int acum = 0, acum2 = 0, acumf = 0;
         while (B != null) {
             if (B.getLi() == null) {
@@ -162,8 +161,8 @@ public class ArbolBinario {
         JOptionPane.showMessageDialog(null, "\n La altura del arbol es de  " + acum);
     }
 
-    public boolean Buscardato(String dato) {
-        Nodo B = raiz;
+    public boolean SearchData(String dato) {
+        Nodo B = Raiz;
         boolean sw = false;
 
         while (B != null && sw == false) {
@@ -180,8 +179,8 @@ public class ArbolBinario {
         return sw;
     }
 
-    public void Buscarhermanos(String dato) {
-        Nodo Aux = null, B = raiz;
+    public void SearchBrothers(String dato) {
+        Nodo Aux = null, B = Raiz;
         boolean sw = false;
 
         while (B != null && sw == false) {
@@ -210,8 +209,8 @@ public class ArbolBinario {
         }
     }
 
-    public void Buscarpadre(String dato) {
-        Nodo Aux = null, B = raiz;
+    public void SearchParent(String dato) {
+        Nodo Aux = null, B = Raiz;
         boolean sw = false;
 
         while (B != null && sw == false) {
@@ -235,8 +234,8 @@ public class ArbolBinario {
         else JOptionPane.showMessageDialog(null, " La raiz no tiene padre");
     }
 
-    public void Buscarhijos(String dato) {
-        Nodo B = raiz;
+    public void SearchChild(String dato) {
+        Nodo B = Raiz;
         boolean sw = false;
 
         while (B != null && sw == false) {
@@ -283,8 +282,8 @@ public class ArbolBinario {
 
     }
 
-    public void niveldato(String dato) {
-        Nodo B = raiz, C = raiz;
+    public void LevelData(String dato) {
+        Nodo B = Raiz, C = Raiz;
         int j = 0;
         boolean sw = false;
         while (B != null && sw == false) {
@@ -306,20 +305,20 @@ public class ArbolBinario {
 
 
 
-    public void mostrarHojasYProfundidad(Nodo nodo, int profundidad) {
+    public void TreeLeaves(Nodo nodo, int profundidad) {
 
         if(nodo!=null){
             if (nodo.getLi() == null && nodo.getLd() == null) {
                 System.out.println("Hoja  - " + "Nombre: "+nodo.getNombre() + "  Cedula: " + nodo.getCedula() +" Edad: "+ nodo.getEdad() + " Nivel: " + profundidad);
             }
 
-            mostrarHojasYProfundidad(nodo.getLi(), profundidad + 1);
-            mostrarHojasYProfundidad(nodo.getLd(), profundidad + 1);
+            TreeLeaves(nodo.getLi(), profundidad + 1);
+            TreeLeaves(nodo.getLd(), profundidad + 1);
         }
 
     }
 
-    public void datosnivel(Nodo F,int nivel,int j) {
+    public void DataByLevel(Nodo F, int nivel, int j) {
 
         if (F!=null){
 
@@ -327,13 +326,13 @@ public class ArbolBinario {
                 System.out.println("Nombre: "+F.getNombre() + "  Cedula: " + F.getCedula() +" Edad: "+ F.getEdad() + " Nivel: "+j);
             }
 
-            datosnivel(F.getLi(), nivel,j + 1);
-            datosnivel(F.getLd(), nivel,j+ 1);
+            DataByLevel(F.getLi(), nivel,j + 1);
+            DataByLevel(F.getLd(), nivel,j+ 1);
         }
 
     }
 
-    void gradonodos(Nodo B) {
+    void GradeNodes(Nodo B) {
 
         if(B!=null) {
             if(B.getLi()!=null && B.getLd()!=null){
@@ -343,8 +342,8 @@ public class ArbolBinario {
                 System.out.println("Nombre: "+B.getNombre() + "  Cedula: " + B.getCedula() +" Edad: "+ B.getEdad() + " Grado: "+1 );
             }
             else System.out.println("Nombre: "+B.getNombre() + "  Cedula: " + B.getCedula() +" Edad: "+ B.getEdad() + " Grado: "+0 );
-            gradonodos(B.getLi());
-            gradonodos(B.getLd());
+            GradeNodes(B.getLi());
+            GradeNodes(B.getLd());
 
         }
 
