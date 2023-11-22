@@ -1,14 +1,15 @@
 
 import javax.swing.*;
+import java.text.Format;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 public class Main {
 
     public static void main(String[] args) {
-        ArbolBinario Arbol = new ArbolBinario();
-        boolean app=true;
+        boolean app=true, action;
         int ed, datos;
-        String x, ced, nom, opcion;
+        String x, ced, nom, OptionVal, Option;
 
         //Arboles
         ArbolBinario TreeA = new ArbolBinario("TreeA");
@@ -25,124 +26,132 @@ public class Main {
         Variables.put("TreeD", TreeD);
 
         //Puntero
-        ArbolBinario T = null;
+        ArbolBinario Arbol = null;
 
         while(app) {
-            opcion = Menu();
-            switch (opcion) {
-                case "Insertar":
-                    datos = Integer.parseInt(JOptionPane.showInputDialog(" Ingrese cantidad de personas: "));
-                    for (int i = 0; i < datos; i++) {
-                        ced = JOptionPane.showInputDialog(" Ingrese la cedula de la persona#" + (i + 1) + ": ");
-                        nom = JOptionPane.showInputDialog(" Ingrese el nombre de la persona#" + (i + 1) + ": ");
-                        ed = Integer.parseInt(JOptionPane.showInputDialog(" Ingrese la edad de la persona " + (i + 1) + ": "));
-                        Arbol.Insert(ced, nom, ed);
-                    }
+            action=true;
+            OptionVal=MenuVal();
+            switch (OptionVal){
+                case "TreeA":
+                    Arbol=Variables.get("TreeA");
                     break;
-                case "Mostrar en Preorden":
-                    if (Arbol.getRaiz() == null) {
-                        JOptionPane.showMessageDialog(null, "\n El arbol esta vacio");
-                    } else {
-                        System.out.println("\n" + "Datos en preorden: ");
-                        Arbol.Preorder(Arbol.getRaiz());
-                    }
+                case "TreeB":
+                    Arbol=Variables.get("TreeB");
                     break;
-
-                case "Mostrar en Inorden":
-                    if (Arbol.getRaiz() == null) {
-                        JOptionPane.showMessageDialog(null, " El arbol esta vacio");
-                    } else {
-                        System.out.println("\n" + "Datos en inorden: ");
-                        Arbol.Inorder(Arbol.getRaiz());
-                    }
+                case "TreeC":
+                    Arbol=Variables.get("TreeC");
                     break;
-
-                case "Mostrar en Posorden":
-                    if (Arbol.getRaiz() == null) {
-                        JOptionPane.showMessageDialog(null, "\n" + " El arbol esta vacio");
-                    } else {
-                        System.out.println("\n" + "Datos en posorden: ");
-                        Arbol.Postorder(Arbol.getRaiz());
-                    }
+                case "TreeD":
+                    Arbol=Variables.get("TreeD");
                     break;
-
-                case "Eliminar":
-                    x = JOptionPane.showInputDialog("\n Digite la cedula del usuario que desea eliminar: ");
-                    Arbol.Delete(x);
-                    break;
-                case "Altura del arbol":
-                    Arbol.Level();
-                    break;
-
-                case "Buscar un dato":
-                    x = JOptionPane.showInputDialog("\n Digite la cedula del usuario que desea buscar: ");
-                    if (!Arbol.SearchData(x)) {
-                        JOptionPane.showMessageDialog(null, " La cedula del usuario no existe");
-                    } else {
-                        JOptionPane.showMessageDialog(null, " La cedula del usuario " + x + " existe");
-                    }
-                    break;
-
-                case "Buscar hermanos de un dato":
-                    x = JOptionPane.showInputDialog("\n Digite la cedula del usuario al que desea buscar sus hermanos: ");
-                    Arbol.SearchBrothers(x);
-                    break;
-
-                case "Buscar padre de un dato":
-                    x = JOptionPane.showInputDialog("\n Digite la cedula del usuario al que desea buscar su Padre: ");
-                    Arbol.SearchParent(x);
-                    break;
-
-                case "Buscar hijos de un dato":
-                    x = JOptionPane.showInputDialog("\n Digite la cedula del usuario al que desea buscar sus hijos: ");
-                    Arbol.SearchChild(x);
-                    break;
-
-                case "Contar raices del arbol":
-                    JOptionPane.showMessageDialog(null,"La cantidad de raices en el arbol es de "+Arbol.CountRoots(Arbol.getRaiz()) );
-                    break;
-
-                case "Nivel de un dato":
-                    x = JOptionPane.showInputDialog("\n Digite la cedula del usuario al que desea buscar su nivel: ");
-                    Arbol.LevelData(x);
-                    break;
-                case "Nodos en un nivel del arbol":
-                    if (Arbol.getRaiz() == null) {
-                        JOptionPane.showMessageDialog(null, "El arbol esta vacio");
-
-                    }else{
-                        datos = Integer.parseInt(JOptionPane.showInputDialog(" Ingrese nivel de los datos a buscar: "));
-                        Arbol.DataByLevel(Arbol.getRaiz(),datos,1);
-                    }
-
-                    break;
-                case "Hojas del arbol y su nivel":
-                    if (Arbol.getRaiz() == null) {
-                        JOptionPane.showMessageDialog(null, "El arbol esta vacio");
-
-                    }else{
-                        Arbol.TreeLeaves(Arbol.getRaiz(),1);
-                    }
-                    break;
-                case "Grado de cada Nodo":
-                    if (Arbol.getRaiz() == null) {
-                        JOptionPane.showMessageDialog(null, "\n El arbol esta vacio");
-                    } else {
-                        System.out.println("\n" + "Todos los nodos con su grado: ");
-                        Arbol.GradeNodes(Arbol.getRaiz());
-                    }
-                    break;
-
                 case "Salir":
                     app=false;
+                    action=false;
                     System.out.println("Saliendo...");
-                    break;
+            }
+
+
+            while(action) {
+                Option = Menu(Arbol.getName());
+                switch (Option) {
+                    case "Insertar":
+                        datos = Integer.parseInt(JOptionPane.showInputDialog(" Ingrese cantidad de personas: "));
+                        for (int i = 0; i < datos; i++) {
+                            ced = JOptionPane.showInputDialog(" Ingrese la cedula de la persona#" + (i + 1) + ": ");
+                            nom = JOptionPane.showInputDialog(" Ingrese el nombre de la persona#" + (i + 1) + ": ");
+                            ed = Integer.parseInt(JOptionPane.showInputDialog(" Ingrese la edad de la persona " + (i + 1) + ": "));
+                            Arbol.Insert(ced, nom, ed);
+                        }
+                        break;
+                    case "Mostrar en Preorden":
+                        Arbol.ShowPreOrder();
+                        break;
+
+                    case "Mostrar en Inorden":
+                        Arbol.ShowInOrder();
+                        break;
+
+                    case "Mostrar en Posorden":
+                        Arbol.ShowPostOrder();
+                        break;
+
+                    case "Eliminar":
+                        x = JOptionPane.showInputDialog("\n Digite la cedula del usuario que desea eliminar: ");
+                        Arbol.Delete(x);
+                        break;
+                    case "Altura del arbol":
+                        Arbol.Level();
+                        break;
+
+                    case "Buscar un dato":
+                        x = JOptionPane.showInputDialog("\n Digite la cedula del usuario que desea buscar: ");
+                        if (!Arbol.SearchData(x)) {
+                            JOptionPane.showMessageDialog(null, " La cedula del usuario no existe");
+                        } else {
+                            JOptionPane.showMessageDialog(null, " La cedula del usuario " + x + " existe");
+                        }
+                        break;
+
+                    case "Buscar hermanos de un dato":
+                        x = JOptionPane.showInputDialog("\n Digite la cedula del usuario al que desea buscar sus hermanos: ");
+                        Arbol.SearchBrothers(x);
+                        break;
+
+                    case "Buscar padre de un dato":
+                        x = JOptionPane.showInputDialog("\n Digite la cedula del usuario al que desea buscar su Padre: ");
+                        Arbol.SearchParent(x);
+                        break;
+
+                    case "Buscar hijos de un dato":
+                        x = JOptionPane.showInputDialog("\n Digite la cedula del usuario al que desea buscar sus hijos: ");
+                        Arbol.SearchChild(x);
+                        break;
+
+                    case "Contar raices del arbol":
+                        JOptionPane.showMessageDialog(null, "La cantidad de raices en el arbol es de " + Arbol.CountRoots(Arbol.getRaiz()));
+                        break;
+
+                    case "Nivel de un dato":
+                        x = JOptionPane.showInputDialog("\n Digite la cedula del usuario al que desea buscar su nivel: ");
+                        Arbol.LevelData(x);
+                        break;
+                    case "Nodos en un nivel del arbol":
+                        if (Arbol.getRaiz() == null) {
+                            JOptionPane.showMessageDialog(null, "El arbol esta vacio");
+
+                        } else {
+                            datos = Integer.parseInt(JOptionPane.showInputDialog(" Ingrese nivel de los datos a buscar: "));
+                            Arbol.DataByLevel(Arbol.getRaiz(), datos, 1);
+                        }
+
+                        break;
+                    case "Hojas del arbol y su nivel":
+                        if (Arbol.getRaiz() == null) {
+                            JOptionPane.showMessageDialog(null, "El arbol esta vacio");
+
+                        } else {
+                            Arbol.TreeLeaves(Arbol.getRaiz(), 1);
+                        }
+                        break;
+                    case "Grado de cada Nodo":
+                        if (Arbol.getRaiz() == null) {
+                            JOptionPane.showMessageDialog(null, "\n El arbol esta vacio");
+                        } else {
+                            System.out.println("\n" + "Todos los nodos con su grado: ");
+                            Arbol.GradeNodes(Arbol.getRaiz());
+                        }
+                        break;
+
+                    case "Volver":
+                        action = false;
+                        break;
+                }
             }
         }
 
     }
 
-    public static String Menu() {
+    public static String Menu(String Tree) {
         String[] Options = {
                 "Insertar",
                 "Mostrar en Preorden",
@@ -165,7 +174,7 @@ public class Main {
         String Option = (String) JOptionPane.showInputDialog(
                 null,
                 "Seleccione una Opcion: ",
-                "Menu de Arboles Binarios",
+                "Menu de "+Tree+" Binarios",
                 JOptionPane.QUESTION_MESSAGE,
                 null,
                 Options,
@@ -173,7 +182,7 @@ public class Main {
         return Option;
     }
 
-    public String MenuVal(){
+    public static String MenuVal(){
         String[] Options={
                 "TreeA",
                 "TreeB",

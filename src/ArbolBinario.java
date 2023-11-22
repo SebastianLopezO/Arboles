@@ -4,6 +4,7 @@ public class ArbolBinario {
 
     private Nodo Raiz;
     public String Name;
+    public int Acum =0;
 
     public ArbolBinario() {
         this.Raiz = null;
@@ -17,22 +18,50 @@ public class ArbolBinario {
         return Raiz;
     }
 
-    public int acum=0;
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
 
     public void Preorder(Nodo R) {
         if (R != null) {
-            System.out.println(R.getCedula() + "   " + R.getNombre() + "   " + R.getEdad());
+            System.out.printf("%-10s%-20s%-10s%-20s%-10s%-20s%-1s\n","|",R.getCedula(),"|",R.getNombre(),"|",R.getEdad(),"|");
             Preorder(R.getLi());
             Preorder(R.getLd());
         }
     }
 
+    public void ShowPreOrder(){
+        System.out.println("");
+        System.out.println("¯".repeat(91));
+        System.out.printf("%-1s%-40s%-9s%-40s%-1s\n","|", "", "PreOrden", "","|");
+        System.out.println("-".repeat(91));
+        System.out.printf("%-10s%-20s%-10s%-20s%-10s%-20s%-1s\n","|","Cedula","|","Nombre","|","Edad","|");
+        System.out.println("-".repeat(91));
+        this.Preorder(this.getRaiz());
+        System.out.println("-".repeat(91));
+    }
+
     public void Inorder(Nodo R) {
         if (R != null) {
             this.Inorder(R.getLi());
-            System.out.println(R.getCedula() + "   " + R.getNombre() + "   " + R.getEdad());
+            System.out.printf("%-10s%-20s%-10s%-20s%-10s%-20s%-1s\n","|",R.getCedula(),"|",R.getNombre(),"|",R.getEdad(),"|");
             this.Inorder(R.getLd());
         }
+    }
+
+    public void ShowInOrder(){
+        System.out.println("");
+        System.out.println("¯".repeat(91));
+        System.out.printf("%-1s%-40s%-9s%-40s%-1s\n","|", "", "InOrden", "","|");
+        System.out.println("-".repeat(91));
+        System.out.printf("%-10s%-20s%-10s%-20s%-10s%-20s%-1s\n","|","Cedula","|","Nombre","|","Edad","|");
+        System.out.println("-".repeat(91));
+        this.Inorder(this.getRaiz());
+        System.out.println("-".repeat(91));
     }
 
     public void Postorder(Nodo R) {
@@ -40,8 +69,19 @@ public class ArbolBinario {
         if (R != null) {
             this.Postorder(R.getLi());
             this.Postorder(R.getLd());
-            System.out.println(R.getCedula() + "   " + R.getNombre() + "   " + R.getEdad());
+            System.out.printf("%-10s%-20s%-10s%-20s%-10s%-20s%-1s\n","|",R.getCedula(),"|",R.getNombre(),"|",R.getEdad(),"|");
         }
+    }
+
+    public void ShowPostOrder(){
+        System.out.println("");
+        System.out.println("¯".repeat(91));
+        System.out.printf("%-1s%-40s%-9s%-40s%-1s\n","|", "", "PosOrden", "","|");
+        System.out.println("-".repeat(91));
+        System.out.printf("%-10s%-20s%-10s%-20s%-10s%-20s%-1s\n","|","Cedula","|","Nombre","|","Edad","|");
+        System.out.println("-".repeat(91));
+        this.Postorder(this.getRaiz());
+        System.out.println("-".repeat(91));
     }
 
     public void Insert(String cedula, String nombre, int edad) {
@@ -265,21 +305,17 @@ public class ArbolBinario {
         }
     }
 
-
     public int CountRoots(Nodo B) {
 
         if (B != null) {
             if(B.getLi()!=null || B.getLd()!=null){
-                acum++;
+                Acum++;
             }
             this.CountRoots(B.getLi());
             this.CountRoots(B.getLd());
 
         }
-
-
-        return acum;
-
+        return Acum;
     }
 
     public void LevelData(String dato) {
